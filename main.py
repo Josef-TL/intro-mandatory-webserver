@@ -3,7 +3,7 @@ import andreas
 import josef
 import lykke
 
-server_port = 80
+server_port = 15000
 server_socket = socket(AF_INET, SOCK_STREAM)
 server_socket.bind(('', server_port))
 server_socket.listen(1)
@@ -18,6 +18,7 @@ while True:
     # Når vi har modtaget og bearbedet en request, 
     # skal resultatet være en liste af strings, med hver linje af requesten som en item
     print("Received message:", msg)
-    connection_socket.send("Response")
+    res = ("respose\n")
+    connection_socket.send(res.encode())
     connection_socket.close()
     
