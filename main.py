@@ -16,3 +16,5 @@ while True:
     # Herfra skal vi bearbejde http request
     print("Received message:", msg)
     connection_socket.send("Response")
+    connection_socket.close()
+    
