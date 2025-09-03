@@ -14,6 +14,9 @@ while True:
     msg = connection_socket.recv(2048).decode()
 
     # Herfra skal vi bearbejde http request
+
+    # Når vi har modtaget og bearbedet en request, 
+    # skal resultatet være en liste af strings, med hver linje af requesten som en item
     print("Received message:", msg)
     connection_socket.send("Response")
     connection_socket.close()
