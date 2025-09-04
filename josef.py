@@ -1,8 +1,27 @@
 # Jeg skal lave noget funktionalitet der laver et response
-def create_response(request_lines, status):
-    res = ["HTTP/1.1",str(status)+" OK"] 
-    res.append("asd")
-    res = " ".join(res)
-    return res
+def create_response(uri, status):
+    status_codes = {200: "OK",
+                    404: "Not Found",
+                    500: "Internal Server Error",
+                    501: "Not Implemented"}
 
-print(create_response_header(2,200))
+    res_head = "HTTP/1.1 "
+    if status in status_codes:
+        res_head += str(status) + " " + status_codes[status] + "\r\n"
+
+    res_head += "\r\n"
+    res_body = ""
+
+    
+    match uri:
+        case "/":
+            with open("index.html", "r") as f:
+                res_body += f.read()
+        case "/test":
+            with open("test.html", "r") as f:
+                res_body += f.read()
+        case _:
+            res_body += "<html><h1>404 Not Found</h1></html>"
+
+    body_len = len(res_body.encode("utf-8"))
+    return res_head + res_body, body_len

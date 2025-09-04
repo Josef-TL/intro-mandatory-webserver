@@ -18,7 +18,15 @@ while True:
     # Når vi har modtaget og bearbedet en request, 
     # skal resultatet være en liste af strings, med hver linje af requesten som en item
     print("Received message:", msg)
-    res = ("respose\n")
+
+    ###########
+    ## Her laver jeg respose shit
+    # funktionen tager url og status code som input
+    # og returnerer en string med hele response og byte-længden af body
+    res, body_len = josef.create_response("/",200)
+
+    ###########
+
     connection_socket.send(res.encode())
     connection_socket.close()
     
