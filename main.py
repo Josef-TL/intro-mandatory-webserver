@@ -14,6 +14,7 @@ while True:
     msg = connection_socket.recv(2048).decode()
 
     # Herfra skal vi bearbejde http request
+    result = andreas.handle_request(connection_socket, msg)
 
     # Når vi har modtaget og bearbedet en request, 
     # skal resultatet være en liste af strings, med hver linje af requesten som en item
