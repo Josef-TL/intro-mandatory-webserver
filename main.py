@@ -26,7 +26,7 @@ while True:
     version = result.get("version", "HTTP/1.1")
 
     # Step 2: Build response with josef.py
-    res, body_len = josef.create_response(url,status)
+    res, body_len, status = josef.create_response(url,status)
 
     # Step 3: Send response back
     connection_socket.send(res.encode())
