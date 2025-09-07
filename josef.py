@@ -1,5 +1,5 @@
 # Jeg skal lave noget funktionalitet der laver et response
-def create_response(uri, status):
+def create_response(url, status):
     status_codes = {200: "OK",
                     404: "Not Found",
                     500: "Internal Server Error",
@@ -13,8 +13,11 @@ def create_response(uri, status):
     res_body = ""
 
     
-    match uri:
+    match url:
         case "/":
+            with open("index.html", "r") as f:
+                res_body += f.read()
+        case "/index":
             with open("index.html", "r") as f:
                 res_body += f.read()
         case "/test":

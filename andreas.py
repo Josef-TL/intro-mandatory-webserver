@@ -10,9 +10,9 @@ The purpose of andreas.py should just be:
 Then main.py decides what to do with that data (e.g. call josef.py to build the response).
 """
 
-def handle_request(connection_socket, msg):
+def handle_request(msg):
     try:
-        # 1. Læser requesten 
+        # 1. splitter requesten 
         lines = msg.split("\r\n") 
         if not lines or not lines[0]:
             return {"status": 400, "body": "Bad Request"}
@@ -21,9 +21,9 @@ def handle_request(connection_socket, msg):
         try:
             method, path, version = lines[0].split()
         except ValueError:
-            return {"status": "400 Bad Request", "body": "Bad Request"}
+            return {"status": 400, "body": "Bad Request"}
     
-        # 3. Tjek om det er en gyldig HTTP/1.1 GET request
+        # 3. validerer at det er en gyldig HTTP/1.1 GET request
         if method != "GET" or version != "HTTP/1.1":
             return {"status": "400 Bad Request", "body": "Bad Request"} 
         
