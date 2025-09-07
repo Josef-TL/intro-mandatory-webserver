@@ -1,4 +1,3 @@
-from socket import * 
 """
 The purpose of andreas.py should just be:
 
@@ -16,9 +15,7 @@ def handle_request(connection_socket, msg):
         # 1. Læser requesten 
         lines = msg.split("\r\n") 
         if not lines or not lines[0]:
-            connection_socket.close()
-            return
-        print("Request lines:", lines) 
+            return {"status": 400, "body": "Bad Request"}
 
         # 2. Parse første linje
         try:
