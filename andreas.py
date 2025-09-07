@@ -27,7 +27,7 @@ def handle_request(connection_socket, msg):
             return {"status": "400 Bad Request", "body": "Bad Request"}
     
         # 3. Tjek om det er en gyldig HTTP/1.1 GET request
-        if method != "GET" or path != "/" or version != "HTTP/1.1":
+        if method != "GET" or version != "HTTP/1.1":
             return {"status": "400 Bad Request", "body": "Bad Request"} 
         
         # 4. Returner en simpel response
