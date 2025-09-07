@@ -15,22 +15,15 @@ while True:
     msg = connection_socket.recv(2048).decode()
     print("Raw request:\n", msg)
 
-    # Default response values
-    status = 500
-    url = "/"
-
     # Step 1: Parse the request with andreas.py
     result = andreas.handle_request(msg)
 
     # We need to save the "status" and "url" values that andreas.handle_request(msg) returns,
     # so that we can pass them to josef.create_response(url,status) as parameters 
-    if result["status"] == 200:
-        url = result["path"]      # "/index" or "/test"
-        status = 200
-    elif result["status"] == 400:
-        status = 400
-    else:
-        status = 500
+    status = result.get("status", 500)
+    url = result.get("path", "/")
+    method = result.get("method", "GET")
+    version = result.get("version", "HTTP/1.1")
 
     # Step 2: Build response with josef.py
     res, body_len = josef.create_response(url,status)
@@ -38,4 +31,8 @@ while True:
     # Step 3: Send response back
     connection_socket.send(res.encode())
     connection_socket.close()
+
+    # Step 4: Log the request in Apache format
+    client_ip = addr[0]
+    lykke.log_request(client_ip, method, url, version, status, body_len)
     
