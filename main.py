@@ -20,7 +20,7 @@ while True:
     url = "/"
 
     # Step 1: Parse the request with andreas.py
-    result = andreas.handle_reques(msg)
+    result = andreas.handle_request(msg)
 
     # We need to save the "status" and "url" values that andreas.handle_request(msg) returns,
     # so that we can pass them to josef.create_response(url,status) as parameters 
@@ -33,7 +33,7 @@ while True:
         status = 500
 
     # Step 2: Build response with josef.py
-    res, body_len = josef.create_response("/",200)
+    res, body_len = josef.create_response(url,status)
 
     # Step 3: Send response back
     connection_socket.send(res.encode())

@@ -12,19 +12,20 @@ def create_response(url, status):
     res_head += "\r\n"
     res_body = ""
 
-    
-    match url:
-        case "/":
-            with open("index.html", "r") as f:
-                res_body += f.read()
-        case "/index":
-            with open("index.html", "r") as f:
-                res_body += f.read()
-        case "/test":
-            with open("test.html", "r") as f:
-                res_body += f.read()
-        case _:
-            res_body += "<html><h1>404 Not Found</h1></html>"
+    if url == "/":
+        filename = "index.html"
+    elif url.endswith(".html"):
+        filename = url.lstrip("/")  # strip leading "/"
+    else:
+        filename = url.lstrip("/") + ".html"
+
+    try:
+        with open(filename, "r") as f:
+            res_body = f.read()
+        status = 200
+    except FileNotFoundError:
+        res_body = "<html><h1>404 Not Found</h1></html>"
+        status = 404
 
     body_len = len(res_body.encode("utf-8"))
     return res_head + res_body, body_len
