@@ -24,8 +24,11 @@ def log_request(ip, method, path, version, status, size, error_msg):
     if status == 200:
         # Creates f-string with the arguments in APACHE format
         entry = f'{ip} - - [{now}] "{method} {path} {version}" {status} {size}\n'
+    elif status == 404: 
+        entry = f'{ip} - - [{now}] "{path} {error_msg}" {status} {size}\n'     
     else:
         entry = f'{ip} - - [{now}] "{error_msg}" {status} {size}\n'
+        
     
     # Logs entry(the http request) in server.log
     # Also creates ther server.log file if it doesnt exist
