@@ -21,9 +21,9 @@ while True:
     # We need to save the "status" and "url" values that andreas.handle_request(msg) returns,
     # so that we can pass them to josef.create_response(url,status) as parameters 
     status = result.get("status", 500)
-    url = result.get("path", "/")
-    method = result.get("method", "GET")
-    version = result.get("version", "HTTP/1.1")
+    url = result.get("path", None)
+    method = result.get("method", None)
+    version = result.get("version", None)
 
     # Step 2: Build response with josef.py
     res, body_len, status = josef.create_response(url,status)

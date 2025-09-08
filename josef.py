@@ -13,12 +13,18 @@ def create_response(url, status):
     
 
     # sørger for at path er i den rigtige format.
-    if url == "/":
-        filename = "index.html"
-    elif url.endswith(".html"):
-        filename = url.lstrip("/")  # strip leading "/"
-    else:
-        filename = url.lstrip("/") + ".html"
+    while True:
+        if url == None:
+            break
+        elif url == "/":
+            filename = "index.html"
+            break
+        elif url.endswith(".html"):
+            filename = url.lstrip("/")  # strip leading "/"
+            break
+        else:
+            filename = url.lstrip("/") + ".html"
+            break
 
 
     # checker status
@@ -37,7 +43,7 @@ def create_response(url, status):
                 res_body = "<html><h1>404 Not Found</h1></html>"
                 res_head += str(status) + status_codes[status] + "\r\n"
                 
-
+        # Manuel html
         case 400:
             res_body = "<html><h1>400 Bad request</h1></html>"
             res_head += str(status) + " " + status_codes[status] + "\r\n"
