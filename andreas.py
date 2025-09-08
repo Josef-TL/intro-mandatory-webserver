@@ -31,4 +31,4 @@ def handle_request(msg):
         return {"status": 200, "method": method, "path": path, "version": version}
     
     except Exception as e:
-        return {"status": 500, "reason": str(e)}
+        return {"status": 500, "body": str(e)}

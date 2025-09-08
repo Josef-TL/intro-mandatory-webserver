@@ -14,7 +14,7 @@ def create_response(url, status):
 
     # sørger for at path er i den rigtige format.
     while True:
-        if url == None:
+        if url == "":
             break
         elif url == "/":
             filename = "index.html"
@@ -30,7 +30,6 @@ def create_response(url, status):
     # checker status
     match status:
         case 200:
-
             # Prøv at åbne filen. Hvis man kan, kør videre
             # hvis det fejler med 404, lav status om 
             try:
