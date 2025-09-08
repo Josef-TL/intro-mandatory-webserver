@@ -27,7 +27,7 @@ while True:
     error_msg = result.get("body", "")
 
     # Step 2: Build response with josef.py
-    res, body_len, status = josef.create_response(url,status)
+    res, body_len, status, error_msg = josef.create_response(url,status,error_msg)
 
     # Step 3: Send response back
     connection_socket.send(res.encode())

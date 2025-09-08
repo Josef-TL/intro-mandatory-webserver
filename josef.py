@@ -1,5 +1,5 @@
 # Jeg skal lave noget funktionalitet der laver et response
-def create_response(url, status):
+def create_response(url, status, error_msg):
     status_codes = {200: "OK",
                     400: "Bad request",
                     404: "Not Found",
@@ -39,6 +39,7 @@ def create_response(url, status):
 
             except FileNotFoundError:
                 status = 404
+                error_msg = status_codes[status]
                 res_body = "<html><h1>404 Not Found</h1></html>"
                 res_head += str(status) + status_codes[status] + "\r\n"
                 
@@ -58,4 +59,4 @@ def create_response(url, status):
     # checker body lenght for logging purpose
     body_len = len(res_body.encode("utf-8"))
 
-    return res_head + res_body, body_len, status
+    return res_head + res_body, body_len, status, error_msg
