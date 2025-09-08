@@ -25,7 +25,7 @@ def handle_request(msg):
     
         # 3. validerer at det er en gyldig HTTP/1.1 GET request
         if method != "GET" or version != "HTTP/1.1":
-            return {"status": "400 Bad Request", "body": "Bad Request"} 
+            return {"status": 400, "body": "Bad Request"} 
         
         # 4. Returner en simpel response
         return {"status": 200, "method": method, "path": path, "version": version}
