@@ -13,7 +13,7 @@ import datetime
 
 LOGFILE = "server.log"
 
-def log_request(ip, method, path, version, status, size):
+def log_request(ip, method, path, version, status, size, error_msg):
     """
     Logs an HTTP request in Apache format.
     Example:
@@ -21,8 +21,11 @@ def log_request(ip, method, path, version, status, size):
     """
     # Gets the datetime and formats it to APACHE format
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%d/%b/%Y:%H:%M:%S +0000")
-    # Creates f-string with the arguments in APACHE format
-    entry = f'{ip} - - [{now}] "{method} {path} {version}" {status} {size}\n'
+    if status == 200:
+        # Creates f-string with the arguments in APACHE format
+        entry = f'{ip} - - [{now}] "{method} {path} {version}" {status} {size}\n'
+    else:
+        entry = f'{ip} - - [{now}] "{error_msg}" {status} {size}\n'
     
     # Logs entry(the http request) in server.log
     # Also creates ther server.log file if it doesnt exist

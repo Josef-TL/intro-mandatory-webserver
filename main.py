@@ -21,9 +21,10 @@ while True:
     # We need to save the "status" and "url" values that andreas.handle_request(msg) returns,
     # so that we can pass them to josef.create_response(url,status) as parameters 
     status = result.get("status", 500)
-    url = result.get("path", None)
-    method = result.get("method", None)
-    version = result.get("version", None)
+    url = result.get("path", "")
+    method = result.get("method", "")
+    version = result.get("version", "")
+    error_msg = result.get("body", "")
 
     # Step 2: Build response with josef.py
     res, body_len, status = josef.create_response(url,status)
@@ -34,5 +35,5 @@ while True:
 
     # Step 4: Log the request in Apache format
     client_ip = addr[0]
-    lykke.log_request(client_ip, method, url, version, status, body_len)
+    lykke.log_request(client_ip, method, url, version, status, body_len, error_msg)
     
